@@ -20,3 +20,12 @@ div.field label {
 div.field input {
     float: right;
 }
+
+div#msg-container {
+    height: 3em;
+    padding: 1em;
+}
+div#message {
+    font-style: italic;
+    text-align: center;
+}
