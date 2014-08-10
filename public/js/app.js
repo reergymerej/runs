@@ -1,6 +1,40 @@
 $(function () {
     'use strict';
+
+    var msg = {
+        div: $('#message'),
+        delay: 3000,
+        timeoutId: null,
+        queue: [],
+        set: function (message) {
+            this.queue.push(message);
+
+            // If already processing, don't worry.
+            if (this.timeoutId === null) {
+                this.process();
+            }
+        },
+        process: function () {
+            var that = this;
+
+            // clear previous
+            this.div.fadeOut('slow', function () {
+                var message;
+                that.timeoutId = null;
+                if (that.queue.length) {
+                    message = that.queue.shift();
+                    that.div.html(message).fadeIn('fast', function () {
+                        that.timeoutId = setTimeout(function () {
+                            that.process();
+                        }, that.delay);
+                    });
+                }
+            });
+        }
+    };
     
+    window.msg = msg;
+
     var fields = {};
 
     // get a reference to each field
@@ -32,10 +66,13 @@ $(function () {
             url: 'api/run',
             data: data,
             error: function () {
-                console.error('not cool');
+                msg.set('unable to save run :(');
             },
             success: function () {
-                console.log('cool');
+                msg.set('run saved');
+                $.each(fields, function (fieldName, field) {
+                    field.val('');
+                });
             }
         });
 
