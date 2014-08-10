@@ -1,8 +1,22 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    font-family: monospace;
 }
 
-a {
-  color: #00B7FF;
+form {
+    display: inline-block;
+    width: 300px;
+    
+}
+
+div.field {
+    position: relative;
+    clear: both;
+}
+
+div.field label {
+
+}
+
+div.field input {
+    float: right;
 }
