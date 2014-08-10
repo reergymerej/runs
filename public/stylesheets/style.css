@@ -2,6 +2,11 @@ body {
     font-family: monospace;
 }
 
+#content {
+    width: 500px;
+    margin: auto;
+}
+
 form {
     display: inline-block;
     width: 300px;
