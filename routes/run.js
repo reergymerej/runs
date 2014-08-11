@@ -3,6 +3,7 @@
 
 // Mongoose bootstrap ================================================
 
+// TODO: Move this db stuff to its own place.  Load config options from environment.
 var mongoose = require('mongoose');
 // var dbPath = 'localhost/test';
 var dbPath = 'dude:dude@troup.mongohq.com:10027/reergymerej';
