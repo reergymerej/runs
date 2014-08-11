@@ -1,0 +1,11 @@
+{
+    "production": {
+        "message": "I am in production mode."
+    },
+    "development": {
+        "message": "I am in development mode."
+    },
+    "dude": {
+        "message": "I am in dude mode."
+    }
+}
