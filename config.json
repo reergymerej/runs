@@ -1,9 +1,11 @@
 {
     "production": {
-        "message": "I am in production mode."
+        "message": "I am in production mode.",
+        "dbPath": "dude:dude@troup.mongohq.com:10027/reergymerej"
     },
     "development": {
-        "message": "I am in development mode."
+        "message": "I am in development mode.",
+        "dbPath": "dude:dude@kahana.mongohq.com:10030/testing"
     },
     "dude": {
         "message": "I am in dude mode."
