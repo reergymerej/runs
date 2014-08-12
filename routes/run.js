@@ -41,3 +41,13 @@ exports.create = function (req, res) {
         res.json(run);
     });
 };
+
+exports.list = function (req, res) {
+    var runs = Run.find(function (err, runs) {
+        if (err) {
+            throw err;
+        }
+        
+        res.json(runs);
+    });
+};
