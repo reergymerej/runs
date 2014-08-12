@@ -6,19 +6,18 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var routes = require('./routes');
-var users = require('./routes/user');
-var runs = require('./routes/run');
-
+var routes;
+var users;
+var runs;
 var app;
 
 // use NODE_ENV=whatever node ./app.js to change this from the command line
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 app = express();
+routes = require('./routes');
+users = require('./routes/user');
+runs = require('./routes/run');
 
-// load the configurations from config.json based on the environment
-var config = require('./config.json')[process.env.NODE_ENV];
-console.log(config);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

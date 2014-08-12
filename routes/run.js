@@ -1,13 +1,15 @@
 'use strict';
 
+// load the configurations from config.json based on the environment
+var config = require('../config.json')[process.env.NODE_ENV];
 
 // Mongoose bootstrap ================================================
 
 // TODO: Move this db stuff to its own place.  Load config options from environment.
 var mongoose = require('mongoose');
-// var dbPath = 'localhost/test';
-var dbPath = 'dude:dude@troup.mongohq.com:10027/reergymerej';
+var dbPath = config.dbPath;
 var db = mongoose.connection;
+
 
 db.on('error', console.error.bind(console, 'connection error'));
 
