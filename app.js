@@ -34,6 +34,7 @@ app.use(app.router);
 app.get('/', routes.index);
 app.get('/users', users.list);
 app.post('/api/run', runs.create);
+app.get('/api/run', runs.list);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {
