@@ -3,29 +3,16 @@
 // load the configurations from config.json based on the environment
 var config = require('../config.json')[process.env.NODE_ENV];
 
-// Mongoose bootstrap ================================================
-
 // TODO: Move this db stuff to its own place.  Load config options from environment.
 var mongoose = require('mongoose');
-var dbPath = config.dbPath;
 var db = mongoose.connection;
-
+var dbPath = config.dbPath;
+var Run = require('../models/run.js').Run;
 
 db.on('error', console.error.bind(console, 'connection error'));
 
 mongoose.connect('mongodb://' + dbPath);
 
-// Schema ================================================
-var runSchema = mongoose.Schema({
-    date: Date,
-    time: String,
-    distance: Number,
-    rating: Number,
-    weight: Number
-});
-
-// Model ================================================
-var Run = mongoose.model('Run', runSchema);
 
 
 

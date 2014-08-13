@@ -8,3 +8,7 @@ exports.index = function(req, res){
         message: config.message
     });
 };
+
+exports.list = function (req, res) {
+    res.end('hello');
+};
