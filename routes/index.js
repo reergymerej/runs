@@ -10,5 +10,16 @@ exports.index = function(req, res){
 };
 
 exports.list = function (req, res) {
-    res.end('hello');
+    var Run = require('../models/run.js').Run;
+    Run.find({}, function (err, runs) {
+
+        if (err) {
+            throw err;
+        }
+
+        res.render('list', {
+            title: 'Past Runs',
+            runs: runs
+        });
+    });
 };
