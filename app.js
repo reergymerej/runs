@@ -32,6 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(app.router);
 
 app.get('/', routes.index);
+app.get('/list', routes.list);
 app.get('/users', users.list);
 app.post('/api/run', runs.create);
 app.get('/api/run', runs.list);
