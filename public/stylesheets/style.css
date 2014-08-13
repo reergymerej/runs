@@ -1,12 +1,12 @@
 body {
     font-family: monospace;
-    background-color: #000;
+    background-color: #FFF;
 }
 
 #content {
     width: 500px;
     margin: auto;
-    background-color: #93DF90;
+    background-color: rgba(201, 209, 201, 1);
     padding: 1.5em;
     border-radius: 0.5em;
 }

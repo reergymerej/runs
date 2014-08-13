@@ -71,6 +71,7 @@ var debug = require('debug')('my-application');
 
 var server = app.listen(app.get('port'), function() {
   debug('Express server listening on port ' + server.address().port);
+  console.log('running in %s mode', app.get('env'));
 });
 
 
