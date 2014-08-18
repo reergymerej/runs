@@ -6,13 +6,11 @@ block content
     ul
         each run in runs
             li
-                p date:
-                    = run.date
-                p distance:
-                    = run.distance
-                p distance:
-                    = run.distance
-                //- = run
-                //- = run.date
-                //- = run.distance
-                //- = run.rating
+                p= 'date: ' + (run.date.getMonth() + 1) + '/' + run.date.getDate() + '/' + run.date.getFullYear()
+                p= 'time: ' + run.time
+                p= 'distance: ' + run.distance
+                p= 'rating: ' + run.rating
+                p= 'weight: ' + run.weight
+
+    hr
+    a(href='/') back
