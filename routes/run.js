@@ -38,3 +38,9 @@ exports.list = function (req, res) {
         res.json(runs);
     });
 };
+
+exports.update = function (req, res) {
+    console.log(req.params.id);
+    console.log(req.body);
+    res.end('good');
+};

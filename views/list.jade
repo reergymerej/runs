@@ -11,6 +11,8 @@ block content
                 p= 'distance: ' + run.distance
                 p= 'rating: ' + run.rating
                 p= 'weight: ' + run.weight
+                p 
+                    a(href='/view/#{run._id}') view
 
     hr
     a(href='/') back
