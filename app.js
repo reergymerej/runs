@@ -31,10 +31,14 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(app.router);
 
+// routes for run CRUD operations
 app.get('/', routes.index);
 app.get('/list', routes.list);
-app.get('/users', users.list);
+app.get('/view/:id', routes.view);
+
+// app.get('/users', users.list);
 app.post('/api/run', runs.create);
+app.put('/api/run/:id', runs.update);
 app.get('/api/run', runs.list);
 
 /// catch 404 and forwarding to error handler
