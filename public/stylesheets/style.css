@@ -43,3 +43,24 @@ div#message {
     font-style: italic;
     text-align: center;
 }
+
+
+.rating-1 {
+    background-color: rgb(255, 124, 229);
+}
+
+.rating-2 {
+    background-color: rgb(255, 204, 0);
+}
+
+.rating-3 {
+    background-color: rgb(124, 176, 255);
+}
+
+.rating-4 {
+    background-color: rgb(71, 255, 0);
+}
+
+.rating-5 {
+    background-color: rgb(255, 0, 0);
+}
