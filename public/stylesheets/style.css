@@ -44,23 +44,28 @@ div#message {
     text-align: center;
 }
 
+.run {
+    list-style: none;
+    padding: .5em 1em;
+    margin: 1em;
+}
 
 .rating-1 {
-    background-color: rgb(255, 124, 229);
+    background-color: red;
 }
 
 .rating-2 {
-    background-color: rgb(255, 204, 0);
+    background-color: orange;
 }
 
 .rating-3 {
-    background-color: rgb(124, 176, 255);
+    background-color: yellow;
 }
 
 .rating-4 {
-    background-color: rgb(71, 255, 0);
+    background-color: green;
 }
 
 .rating-5 {
-    background-color: rgb(255, 0, 0);
+    background-color: red;
 }
