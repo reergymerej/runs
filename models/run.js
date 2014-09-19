@@ -7,7 +7,8 @@ var runSchema = mongoose.Schema({
     time: String,
     distance: Number,
     rating: Number,
-    weight: Number
+    weight: Number,
+    vertical: Number
 });
 
 var Run = mongoose.model('Run', runSchema);

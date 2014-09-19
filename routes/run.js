@@ -22,19 +22,18 @@ exports.create = function (req, res) {
 
     run.save(function (err, run) {
         if (err) {
-            throw err;
+            res.status(500).send('error saving run\n' + err);
+        } else {
+            res.json(run);
         }
-
-        res.json(run);
     });
 };
 
 exports.list = function (req, res) {
     var runs = Run.find(function (err, runs) {
         if (err) {
-            throw err;
+            res.status(500).send('error loading runs\n' + err);
         }
-        
         res.json(runs);
     });
 };
@@ -43,4 +42,5 @@ exports.update = function (req, res) {
     console.log(req.params.id);
     console.log(req.body);
     res.end('good');
+    // res.status(500).send('error updating run\n' + err);
 };
