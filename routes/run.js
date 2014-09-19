@@ -14,8 +14,6 @@ db.on('error', console.error.bind(console, 'connection error'));
 mongoose.connect('mongodb://' + dbPath);
 
 
-
-
 exports.create = function (req, res) {
 
     var run = new Run(req.body);
@@ -29,12 +27,16 @@ exports.create = function (req, res) {
     });
 };
 
+// This is the list that an API would use to get just JSON.
+// The one we're seeing in the UI is in routes/index.js.
 exports.list = function (req, res) {
-    var runs = Run.find(function (err, runs) {
+
+    Run.find({}).sort({ date: -1 }).exec(function (err, runs) {
         if (err) {
             res.status(500).send('error loading runs\n' + err);
+        } else {
+            res.json(runs);
         }
-        res.json(runs);
     });
 };
 

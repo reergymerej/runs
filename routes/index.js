@@ -1,3 +1,5 @@
+'use strict';
+
 // load the configurations from config.json based on the environment
 var config = require('../config.json')[process.env.NODE_ENV];
 
@@ -10,16 +12,16 @@ exports.index = function(req, res){
 };
 
 exports.list = function (req, res) {
-    Run.find({}, function (err, runs) {
 
+    Run.find({}).sort({ date: -1 }).exec(function (err, runs) {
         if (err) {
-            throw err;
+            res.status(500).send('error loading runs\n' + err);
+        } else {
+            res.render('list', {
+                title: 'Past Runs',
+                runs: runs
+            });
         }
-
-        res.render('list', {
-            title: 'Past Runs',
-            runs: runs
-        });
     });
 };
 
