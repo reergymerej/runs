@@ -5,8 +5,11 @@ block content
     
     ul
         each run in runs
-            li
-                p= 'date: ' + (run.date.getMonth() + 1) + '/' + run.date.getDate() + '/' + run.date.getFullYear()
+            li.run(class= 'rating-' + run.rating)
+                if run.date
+                    p= 'date: ' + (run.date.getMonth() + 1) + '/' + run.date.getDate() + '/' + run.date.getFullYear()
+                else
+                    p= 'date: '
                 p= 'time: ' + run.time
                 p= 'distance: ' + run.distance
                 p= 'rating: ' + run.rating
