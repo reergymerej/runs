@@ -13,7 +13,7 @@ block content
                 input#time(type='text' name='time')
         div.field
             label Distance
-                input#distance(type='text' name='distance')
+                input#distance(type='text' name='distance' value='3.106')
         div.field
             label Rating
                 input#rating(type='text' name='rating')
@@ -29,3 +29,6 @@ block content
     hr
     a(href='list') view all runs
     div= message
+
+    script(src='/js/jquery.min.js')
+    script(src='/js/app.js')
