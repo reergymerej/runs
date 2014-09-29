@@ -1,71 +1,7 @@
 body {
-    font-family: monospace;
-    background-color: #FFF;
+    margin-top: 15px;
 }
 
-#content {
-    width: 500px;
-    margin: auto;
-    background-color: rgba(201, 209, 201, 1);
-    padding: 1.5em;
-    border-radius: 0.5em;
-}
-
-h1 {
-    padding: 0;
-    margin: 0;
-}
-
-form {
-    display: inline-block;
-    width: 300px;
-    
-}
-
-div.field {
-    position: relative;
-    clear: both;
-}
-
-div.field label {
-
-}
-
-div.field input {
-    float: right;
-}
-
-div#msg-container {
-    height: 3em;
-    padding: 1em;
-}
-div#message {
-    font-style: italic;
-    text-align: center;
-}
-
-.run {
-    list-style: none;
-    padding: .5em 1em;
-    margin: 1em;
-}
-
-.rating-1 {
-    background-color: red;
-}
-
-.rating-2 {
-    background-color: orange;
-}
-
-.rating-3 {
-    background-color: yellow;
-}
-
-.rating-4 {
-    background-color: green;
-}
-
-.rating-5 {
-    background-color: red;
+#view-all {
+    display: none;
 }

@@ -45,16 +45,6 @@ $(function () {
         fields[$this.attr('id')] = $this;
     });
 
-    /**
-    * prepopulate values
-    * @param {$} field
-    */
-    var setDate = function (field) {
-        var date = new Date();
-        var val = (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear();
-        field.val(val);
-    };
-
     // handle form submission
     var onSubmit = function () {
         var data = {};
@@ -72,18 +62,17 @@ $(function () {
             },
             success: function () {
                 msg.set('run saved');
-                $.each(fields, function (fieldName, field) {
-                    field.val('');
-                });
+
+                $('button').hide();
+                $('#view-all').show();
             }
         });
 
         return false;
     };
 
-    if (!onUpdatePage) {
-        setDate(fields.date);
-    }
+    // initialize form values
+    fields.date.val((new Date()).toISOString().substring(0, 10));
 
     $('form').on('submit', onSubmit);
 }());
