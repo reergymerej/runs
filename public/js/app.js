@@ -54,7 +54,7 @@ $(function () {
         });
 
         $.ajax({
-            type: onUpdatePage ? 'PUT' : 'POST',
+            type: 'POST',
             url: 'api/run' + (onUpdatePage ? '/' + data._id : ''),
             data: data,
             error: function () {
