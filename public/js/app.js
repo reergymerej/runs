@@ -1,8 +1,6 @@
 $(function () {
     'use strict';
 
-    var onUpdatePage = $('form#new').length === 0;
-
     var msg = {
         div: $('#message'),
         delay: 3000,
@@ -55,7 +53,7 @@ $(function () {
 
         $.ajax({
             type: 'POST',
-            url: 'api/run' + (onUpdatePage ? '/' + data._id : ''),
+            url: 'api/run',
             data: data,
             error: function () {
                 msg.set('unable to save run :(');
