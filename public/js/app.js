@@ -60,9 +60,7 @@ $(function () {
             },
             success: function () {
                 msg.set('run saved');
-
                 $('button').hide();
-                $('#view-all').show();
             }
         });
 

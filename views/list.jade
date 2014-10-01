@@ -7,7 +7,7 @@ block content
         each run in runs
             li.run(class= 'rating-' + run.rating)
                 if run.date
-                    p= 'date: ' + (run.date.getMonth() + 1) + '/' + run.date.getDate() + '/' + run.date.getFullYear()
+                    p= 'date: ' + (run.date.getFullYear()) + '-' + (run.date.getMonth() + 1) + '-' + (run.date.getDate())
                 else
                     p= 'date: '
                 p= 'time: ' + run.time
@@ -15,8 +15,6 @@ block content
                 p= 'rating: ' + run.rating
                 p= 'weight: ' + run.weight
                 p= 'vertical: ' + run.vertical
-                p 
-                    a(href='/view/#{run._id}') view
 
     hr
     a(href='/') back
