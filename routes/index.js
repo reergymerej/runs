@@ -5,6 +5,14 @@ var config = require('../config.json')[process.env.NODE_ENV];
 
 var Run = require('../models/run.js').Run;
 
+Run.getTopX('weight', function (err, data) {
+    console.log('top weight: ', data[0].weight);
+});
+
+Run.getBottomX('time', function (err, data) {
+    console.log('lowest time: ', data[0].time);
+});
+
 exports.index = function(req, res){
     res.render('index', {
         message: config.message
