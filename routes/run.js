@@ -41,8 +41,19 @@ exports.list = function (req, res) {
 };
 
 exports.update = function (req, res) {
-    console.log(req.params.id);
-    console.log(req.body);
-    res.end('good');
-    // res.status(500).send('error updating run\n' + err);
+    var conditions = {
+        _id: req.params.id
+    };
+    var update = req.body;
+    var callback = function (err, run) {
+        if (err) {
+            res.status(500).end();
+        } else {
+            res.json(run);
+        }
+    };
+
+    delete update._id;
+
+    Run.findOneAndUpdate(conditions, update, callback);
 };
