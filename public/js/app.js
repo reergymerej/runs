@@ -55,7 +55,7 @@ $(function () {
 
         $.ajax({
             type: 'POST',
-            url: 'api/run',
+            url: '/api/run',
             data: data,
             error: function () {
                 msg.set('unable to save run :(');

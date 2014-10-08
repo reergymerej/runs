@@ -20,7 +20,7 @@ $(function () {
 
         $.ajax({
             type: 'PUT',
-            url: 'api/run/' + data._id,
+            url: '/api/run/' + data._id,
             data: data,
             error: function () {
                 console.log('error');
