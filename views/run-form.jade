@@ -1,0 +1,75 @@
+div.container-fluid
+  form.form-horizontal(role='form' novalidate)
+    div.form-group
+      div.col-xs-12
+        input.form-control#date(
+          type='date'
+          value=(run && run.date || new Date()).toISOString().substring(0, 10)
+          placeholder='Date'
+        )
+        input#_id(
+          type='hidden'
+          value=(run && run._id)
+        )
+
+    div.form-group
+      label.col-xs-4.control-label(for='time') Time
+      div.col-xs-8
+        input.form-control#time(
+          type='text'
+          value=(run && run.time)
+          placeholder='Time'
+        )
+
+    div.form-group
+      label.col-xs-4.control-label(for='distance') Distance
+      div.col-xs-8
+        input.form-control#distance(
+          type='number'
+          value=(run && run.distance || 3.106)
+          min='0'
+          step='0.1'
+          placeholder='Distance'
+        )
+
+    div.form-group
+      label.col-xs-4.control-label(for='rating') Rating
+      div.col-xs-8
+        input.form-control#rating(
+          type='number'
+          value=(run && run.rating || 3)
+          min='1'
+          max='5'
+          step='1'
+          placeholder='Rating'
+        )
+
+    div.form-group
+      label.col-xs-4.control-label(for='vertical') Vertical
+      div.col-xs-8
+        input.form-control#vertical(
+          type='number'
+          value=(run && run.vertical || 0)
+          min='0'
+          step='1'
+          placeholder='Vertical'
+        )
+
+    div.form-group
+      label.col-xs-4.control-label(for='weight') Weight
+      div.col-xs-8
+        input.form-control#weight(
+          type='number'
+          value=(run && run.weight || 165)
+          min='0'
+          step='0.1'
+          placeholder='Weight'
+        )
+
+    div.form-group
+      div.col-xs-4
+        p
+          a(href='/list') view all
+      div.col-xs-8
+        button.btn.btn-success.btn-block(type='submit') Save
+    

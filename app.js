@@ -7,7 +7,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var routes;
-var users;
 var runs;
 var app;
 
@@ -15,7 +14,6 @@ var app;
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 app = express();
 routes = require('./routes');
-users = require('./routes/user');
 runs = require('./routes/run');
 
 

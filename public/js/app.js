@@ -51,6 +51,8 @@ $(function () {
             data[fieldName] = field.val();
         });
 
+        delete data._id;
+
         $.ajax({
             type: 'POST',
             url: 'api/run',
