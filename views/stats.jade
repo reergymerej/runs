@@ -1,4 +1,17 @@
 extends layout
 
 block content
-    p here are some stats
+    table.table.table-striped
+        thead
+            tr
+                td
+                td Top
+                td Bottom
+        tbody
+            each fieldVal, field in stats
+                tr
+                    td= field
+                    td
+                        a(href='/view/' + fieldVal.top._id) #{ fieldVal.top[field] }
+                    td
+                        a(href='/view/' + fieldVal.top._id) #{ fieldVal.bottom[field] }
