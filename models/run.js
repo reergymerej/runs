@@ -47,6 +47,114 @@ runSchema.statics.getBottomX = function (x, callback) {
 
 runSchema.statics.getFieldBySort = getFieldBySort;
 
+/**
+* {String} config.field
+* {Number} config.sortOrder
+* {String/Number} [config.$gt]
+* {Object} statHolder
+* @return {Promise}
+*/
+var getStat = function (config) {
+    var stages = [];
+    var obj;
+
+    // $match
+    if (config.$gt !== undefined) {
+        obj = {
+            $match: {}
+        };
+        obj.$match[config.field] = { $gt: config.$gt };
+        stages.push(obj);
+    }
+
+    // $sort
+    obj = { $sort: {} };
+    obj.$sort[config.field] = config.sortOrder;
+    stages.push(obj);
+
+    // $limit
+    stages.push({ $limit: 1 });
+
+    return this.aggregate(stages, function (err, run) {
+        config.statHolder[config.field] = config.statHolder[config.field] || {};
+        if (!err) {
+            config.statHolder[config.field][config.sortOrder === 1 ? 'bottom' : 'top'] = run[0];
+        }
+    });
+};
+
+runSchema.statics.getStats = function (done) {
+    var that = this;
+    var stats = {};
+
+    getStat.call(this, {
+        field: 'time',
+        sortOrder: 1,
+        $gt: '',
+        statHolder: stats
+    })
+    .then(function () {
+        return getStat.call(that, {
+            field: 'time',
+            sortOrder: -1,
+            statHolder: stats
+        });
+    })
+
+    .then(function () {
+        return getStat.call(that, {
+            field: 'distance',
+            sortOrder: 1,
+            $gt: 0,
+            statHolder: stats
+        });
+    })
+    .then(function () {
+        return getStat.call(that, {
+            field: 'distance',
+            sortOrder: -1,
+            statHolder: stats
+        });
+    })
+
+    .then(function () {
+        return getStat.call(that, {
+            field: 'weight',
+            sortOrder: 1,
+            $gt: 0,
+            statHolder: stats
+        });
+    })
+    .then(function () {
+        return getStat.call(that, {
+            field: 'weight',
+            sortOrder: -1,
+            statHolder: stats
+        });
+    })
+
+    .then(function () {
+        return getStat.call(that, {
+            field: 'vertical',
+            sortOrder: 1,
+            $gt: 0,
+            statHolder: stats
+        });
+    })
+    .then(function () {
+        return getStat.call(that, {
+            field: 'vertical',
+            sortOrder: -1,
+            statHolder: stats
+        });
+    })
+
+    .then(function () {
+        done(null, stats);
+    });
+};
+
+
 Run = mongoose.model('Run', runSchema);
 
 exports.Run = Run;

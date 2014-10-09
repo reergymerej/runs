@@ -57,3 +57,8 @@ exports.update = function (req, res) {
 
     Run.findOneAndUpdate(conditions, update, callback);
 };
+
+// TEST ================================================
+Run.getStats(function (err, stats) {
+    console.log('got stats', stats);
+});
