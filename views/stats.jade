@@ -7,6 +7,7 @@ block content
                 td
                 td Top
                 td Bottom
+                td Average
         tbody
             each fieldVal, field in stats
                 tr
@@ -15,3 +16,4 @@ block content
                         a(href='/view/' + fieldVal.top._id) #{ fieldVal.top[field] }
                     td
                         a(href='/view/' + fieldVal.top._id) #{ fieldVal.bottom[field] }
+                    td #{ fieldVal.average }

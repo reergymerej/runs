@@ -150,6 +150,9 @@ runSchema.statics.getStats = function (done) {
     })
 
     .then(function () {
+        Object.keys(stats).forEach(function (field) {
+            stats[field].average = 'n/a';
+        });
         done(null, stats);
     });
 };
