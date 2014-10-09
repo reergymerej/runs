@@ -1,17 +1,11 @@
 'use strict';
 
+// These are routes for the rendered views.
+
 // load the configurations from config.json based on the environment
 var config = require('../config.json')[process.env.NODE_ENV];
 
 var Run = require('../models/run.js').Run;
-
-Run.getTopX('weight', function (err, data) {
-    console.log('top weight: ', data[0].weight);
-});
-
-Run.getBottomX('time', function (err, data) {
-    console.log('lowest time: ', data[0].time);
-});
 
 exports.index = function(req, res){
     res.render('index', {
@@ -50,3 +44,14 @@ exports.view = function (req, res) {
     });
 };
 
+exports.stats = function (req, res) {
+    Run.getStats(function (err, stats) {
+        if (err) {
+            res.status(500).end();
+        } else {
+            res.render('stats', {
+                stats: stats
+            });
+        }  
+    });
+};

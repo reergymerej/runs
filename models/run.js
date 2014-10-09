@@ -51,7 +51,7 @@ runSchema.statics.getFieldBySort = getFieldBySort;
 * {String} config.field
 * {Number} config.sortOrder
 * {String/Number} [config.$gt]
-* {Object} statHolder
+* {Object} statHolder the result of inserted into this object
 * @return {Promise}
 */
 var getStat = function (config) {

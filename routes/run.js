@@ -1,5 +1,7 @@
 'use strict';
 
+// These are routes for the API, not the rendered views.
+
 // load the configurations from config.json based on the environment
 var config = require('../config.json')[process.env.NODE_ENV];
 
@@ -12,7 +14,6 @@ var Run = require('../models/run.js').Run;
 db.on('error', console.error.bind(console, 'connection error'));
 
 mongoose.connect('mongodb://' + dbPath);
-
 
 exports.create = function (req, res) {
 
@@ -58,7 +59,12 @@ exports.update = function (req, res) {
     Run.findOneAndUpdate(conditions, update, callback);
 };
 
-// TEST ================================================
-Run.getStats(function (err, stats) {
-    console.log('got stats', stats);
-});
+exports.stats = function (req, res) {
+    Run.getStats(function (err, stats) {
+        if (err) {
+            res.status(500).end();
+        } else {
+            res.json(stats);
+        }  
+    });
+};

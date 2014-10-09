@@ -34,6 +34,7 @@ app.use(app.router);
 app.get('/', routes.index);
 app.get('/list', routes.list);
 app.get('/view/:id', routes.view);
+app.get('/stats', routes.stats);
 
 // app.get('/users', users.list);
 app.post('/api/run', runs.create);
