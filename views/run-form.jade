@@ -69,5 +69,9 @@ div.container-fluid
 
     div.form-group
       div.col-xs-8.col-xs-offset-4
-        button.btn.btn-success.btn-block(type='submit') Save
-    
+        if run
+          button.btn.btn-success.btn-block(type='submit') Save Changes
+        else
+          button.btn.btn-primary.btn-block(type='submit') Log Run
+        p.message
+        a.hidden#view view

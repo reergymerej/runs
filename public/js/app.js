@@ -1,41 +1,12 @@
 $(function () {
     'use strict';
 
-    var msg = {
-        div: $('#message'),
-        delay: 3000,
-        timeoutId: null,
-        queue: [],
-        set: function (message) {
-            this.queue.push(message);
-
-            // If already processing, don't worry.
-            if (this.timeoutId === null) {
-                this.process();
-            }
-        },
-        process: function () {
-            var that = this;
-
-            // clear previous
-            this.div.fadeOut('slow', function () {
-                var message;
-                that.timeoutId = null;
-                if (that.queue.length) {
-                    message = that.queue.shift();
-                    that.div.html(message).fadeIn('fast', function () {
-                        that.timeoutId = setTimeout(function () {
-                            that.process();
-                        }, that.delay);
-                    });
-                }
-            });
-        }
-    };
-    
-    window.msg = msg;
-
+    // TODO: De-dupe all the stuff in here and view.js.
     var fields = {};
+
+    var msg = function (str) {
+        $('.message').html(str);
+    };
 
     // get a reference to each field
     $('input[type!="submit"]').each(function () {
@@ -47,10 +18,14 @@ $(function () {
     var onSubmit = function () {
         var data = {};
 
+        $('input').prop('disabled', true);
+
         $.each(fields, function (fieldName, field) {
             data[fieldName] = field.val();
         });
 
+        // We don't actually have an _id yet.
+        // Delete it so the backend doesn't try to use "".
         delete data._id;
 
         $.ajax({
@@ -58,11 +33,12 @@ $(function () {
             url: '/api/run',
             data: data,
             error: function () {
-                msg.set('unable to save run :(');
+                msg('unable to save run :(');
             },
-            success: function () {
-                msg.set('run saved');
-                $('button').hide();
+            success: function (run) {
+                msg('run saved');
+                $('button, #view').toggleClass('hidden');
+                $('#view').attr('href', '/view/' + run._id);
             }
         });
 

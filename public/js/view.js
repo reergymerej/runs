@@ -3,6 +3,10 @@ $(function () {
 
     var fields = {};
 
+    var msg = function (str) {
+        $('.message').html(str);
+    };
+
     // get a reference to each field
     $('input[type!="submit"]').each(function () {
         var $this = $(this);
@@ -12,21 +16,23 @@ $(function () {
     var onSubmit = function () {
         var data = {};
 
+        $('input').prop('disabled', true);
+
         $.each(fields, function (fieldName, field) {
             data[fieldName] = field.val();
         });
-
-        console.log('it was submitted', data);
 
         $.ajax({
             type: 'PUT',
             url: '/api/run/' + data._id,
             data: data,
             error: function () {
-                console.log('error');
+                msg('unable to save run :(');
             },
-            success: function () {
-                console.log('success');
+            success: function (run) {
+                msg('run saved');
+                $('button, #view').toggleClass('hidden');
+                $('#view').attr('href', '/view/' + run._id);
             }
         });
 
