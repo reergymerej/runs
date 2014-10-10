@@ -10,5 +10,14 @@ html
   body
     include ./nav.jade
     
+    //- alerts
+    div.alert.alert-dismissible.alert-info(role='alert')
+      button.close(type='button' data-dismiss='alert')
+        span(aria-hidden='true') &times;
+        span.sr-only Close
+      strong Yo
+      | This is some sort of message.
+
+
     div#content
       block content
