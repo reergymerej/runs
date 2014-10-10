@@ -5,7 +5,10 @@ $(function () {
     var fields = {};
 
     var msg = function (str) {
-        $('.message').html(str);
+        var alert = $('.alert').clone();
+        $('.msg', alert).html(str);
+        alert.appendTo('#alert-center').removeClass('hidden');
+        
     };
 
     if (page === '/' || page.match(/\/view/)) {
@@ -43,7 +46,7 @@ $(function () {
                 },
                 success: function (run) {
                     msg('run saved');
-                    $('button, #view').toggleClass('hidden');
+                    $('button[type="submit"], #view').toggleClass('hidden');
                     $('#view').attr('href', '/view/' + run._id);
                 }
             });

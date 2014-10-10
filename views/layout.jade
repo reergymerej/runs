@@ -10,7 +10,16 @@ html
   body
     include ./nav.jade
     
+    div.container-fluid#alert-center
+
     div#content
       block content
 
     script(src='/js/app.js')
+
+    //- silly template for creating alerts
+    div.alert.alert-dismissible.alert-info.hidden(role='alert')
+      button.close(type='button' data-dismiss='alert')
+        span(aria-hidden='true') &times;
+        span.sr-only Close
+      span.msg
