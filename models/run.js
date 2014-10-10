@@ -108,27 +108,25 @@ runSchema.statics.getStats = function (done) {
     var that = this;
     var stats = {};
 
-    getStat.call(this, {
-        field: 'time',
-        sortOrder: 1,
-        $gt: '',
-        statHolder: stats
-    })
-    .then(function () {
-        return getStat.call(that, {
-            field: 'time',
-            sortOrder: -1,
-            statHolder: stats
-        });
-    })
+    // getStat.call(this, {
+    //     field: 'time',
+    //     sortOrder: 1,
+    //     $gt: '',
+    //     statHolder: stats
+    // })
+    // .then(function () {
+    //     return getStat.call(that, {
+    //         field: 'time',
+    //         sortOrder: -1,
+    //         statHolder: stats
+    //     });
+    // })
 
-    .then(function () {
-        return getStat.call(that, {
-            field: 'distance',
-            sortOrder: 1,
-            $gt: 0,
-            statHolder: stats
-        });
+    getStat.call(that, {
+        field: 'distance',
+        sortOrder: 1,
+        $gt: 0,
+        statHolder: stats
     })
     .then(function () {
         return getStat.call(that, {
