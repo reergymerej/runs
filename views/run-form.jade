@@ -1,5 +1,10 @@
 div.container-fluid
-  form.form-horizontal(role='form' novalidate)
+  form.form-horizontal(
+      role='form'
+      action='/api/run' + (run ? '/' + run._id : ''),
+      method=(run ? 'PUT' : 'POST')
+      novalidate
+    )
     div.form-group
       label.col-xs-4.control-label(for='date') Date
       div.col-xs-8
