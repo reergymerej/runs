@@ -5,6 +5,8 @@ var mongoose = require('mongoose');
 var runSchema = mongoose.Schema({
     date: Date,
     time: String,
+    minutes: Number,
+    seconds: Number,
     distance: Number,
     rating: Number,
     weight: Number,
