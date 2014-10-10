@@ -1,7 +1,8 @@
 div.container-fluid
   form.form-horizontal(role='form' novalidate)
     div.form-group
-      div.col-xs-12
+      label.col-xs-4.control-label(for='date') Date
+      div.col-xs-8
         input.form-control#date(
           type='date'
           value=(run && run.date || new Date()).toISOString().substring(0, 10)
@@ -67,9 +68,6 @@ div.container-fluid
         )
 
     div.form-group
-      div.col-xs-4
-        p
-          a(href='/list') view all
-      div.col-xs-8
+      div.col-xs-8.col-xs-offset-4
         button.btn.btn-success.btn-block(type='submit') Save
     
