@@ -20,11 +20,21 @@ div.container-fluid
 
     div.form-group
       label.col-xs-4.control-label(for='time') Time
-      div.col-xs-8
-        input.form-control#time(
-          type='text'
-          value=(run && run.time)
-          placeholder='Time'
+      div.col-xs-4
+        input.form-control#minutes(
+          type='number'
+          min='0'
+          value=(run && run.minutes)
+          placeholder='Minutes'
+        )
+
+      div.col-xs-4
+        input.form-control#seconds(
+          type='number'
+          min='0'
+          max='59'
+          value=(run && run.seconds)
+          placeholder='Seconds'
         )
 
     div.form-group
