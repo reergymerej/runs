@@ -83,6 +83,25 @@ var getStat = function (config) {
     });
 };
 
+/**
+* @param {String} field
+* {Object} statHolder the result of inserted into this object
+* @return {Promise}
+*/
+var getAverage = function (field, statHolder) {
+    return this.aggregate([{
+        $group: {
+            _id: null,
+            average: { $avg: '$' + field }
+        }
+    }], function (err, result) {
+        if (!err) {
+            statHolder[field] = statHolder[field] || {};
+            statHolder[field].average = result[0].average;
+        }
+    });
+};
+
 runSchema.statics.getStats = function (done) {
     var that = this;
     var stats = {};
@@ -116,6 +135,9 @@ runSchema.statics.getStats = function (done) {
             statHolder: stats
         });
     })
+    .then(function () {
+        return getAverage.call(that, 'distance', stats);
+    })
 
     .then(function () {
         return getStat.call(that, {
@@ -131,6 +153,9 @@ runSchema.statics.getStats = function (done) {
             sortOrder: -1,
             statHolder: stats
         });
+    })
+    .then(function () {
+        return getAverage.call(that, 'weight', stats);
     })
 
     .then(function () {
@@ -148,11 +173,11 @@ runSchema.statics.getStats = function (done) {
             statHolder: stats
         });
     })
+    .then(function () {
+        return getAverage.call(that, 'vertical', stats);
+    })
 
     .then(function () {
-        Object.keys(stats).forEach(function (field) {
-            stats[field].average = 'n/a';
-        });
         done(null, stats);
     });
 };
