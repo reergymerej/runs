@@ -9,7 +9,8 @@ var Run = require('../models/run.js').Run;
 
 exports.index = function(req, res){
     res.render('index', {
-        message: config.message
+        message: config.message,
+        page: '/'
     });
 };
 
@@ -21,7 +22,8 @@ exports.list = function (req, res) {
         } else {
             res.render('list', {
                 title: 'Past Runs',
-                runs: runs
+                runs: runs,
+                page: '/list'
             });
         }
     });
@@ -50,7 +52,8 @@ exports.stats = function (req, res) {
             res.status(500).end();
         } else {
             res.render('stats', {
-                stats: stats
+                stats: stats,
+                page: '/stats'
             });
         }  
     });
