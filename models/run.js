@@ -177,6 +177,43 @@ runSchema.statics.getStats = function (done) {
         return getAverage.call(that, 'vertical', stats);
     })
 
+    // Getting the time averages are a little trickier.
+    .then(function () {
+        return that.aggregate([
+            // find only those with minutes & seconds
+            {
+                $match: {
+                    minutes: { $exists: true, $gt: 0 },
+                    seconds: { $exists: true }
+                }
+            },
+
+            // sum each field
+            {
+                $group: {
+                    _id: null,
+                    minutes: {
+                        $sum: '$minutes'
+                    },
+                    seconds: {
+                        $sum: '$seconds'
+                    },
+                    count: {
+                        $sum: 1
+                    }
+                }
+            }
+        ], function (err, agg) {
+            // Agg has the sums of minutes and seconds.
+            // [ { _id: null, minutes: 146, seconds: 12, count: 6 } ]
+            console.log('agg', agg);
+            // At this point, we can handle the average calculation
+            // and split it up into minutes and seconds.
+
+            // TODO: Not sure how to handle the min/mix times yet.  :(  Too tired.
+        });
+    })
+
     .then(function () {
         done(null, stats);
     });
