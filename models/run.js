@@ -122,6 +122,7 @@ runSchema.statics.getStats = function (done) {
     //     });
     // })
 
+    // distance ================================================
     getStat.call(that, {
         field: 'distance',
         sortOrder: 1,
@@ -139,6 +140,7 @@ runSchema.statics.getStats = function (done) {
         return getAverage.call(that, 'distance', stats);
     })
 
+    // weight ================================================
     .then(function () {
         return getStat.call(that, {
             field: 'weight',
@@ -158,6 +160,7 @@ runSchema.statics.getStats = function (done) {
         return getAverage.call(that, 'weight', stats);
     })
 
+    // vertical ================================================
     .then(function () {
         return getStat.call(that, {
             field: 'vertical',
@@ -177,41 +180,24 @@ runSchema.statics.getStats = function (done) {
         return getAverage.call(that, 'vertical', stats);
     })
 
-    // Getting the time averages are a little trickier.
+    // totalSeconds ================================================
     .then(function () {
-        return that.aggregate([
-            // find only those with minutes & seconds
-            {
-                $match: {
-                    minutes: { $exists: true, $gt: 0 },
-                    seconds: { $exists: true }
-                }
-            },
-
-            // sum each field
-            {
-                $group: {
-                    _id: null,
-                    minutes: {
-                        $sum: '$minutes'
-                    },
-                    seconds: {
-                        $sum: '$seconds'
-                    },
-                    count: {
-                        $sum: 1
-                    }
-                }
-            }
-        ], function (err, agg) {
-            // Agg has the sums of minutes and seconds.
-            // [ { _id: null, minutes: 146, seconds: 12, count: 6 } ]
-            console.log('agg', agg);
-            // At this point, we can handle the average calculation
-            // and split it up into minutes and seconds.
-
-            // TODO: Not sure how to handle the min/mix times yet.  :(  Too tired.
+        return getStat.call(that, {
+            field: 'totalSeconds',
+            sortOrder: 1,
+            $gt: 0,
+            statHolder: stats
         });
+    })
+    .then(function () {
+        return getStat.call(that, {
+            field: 'totalSeconds',
+            sortOrder: -1,
+            statHolder: stats
+        });
+    })
+    .then(function () {
+        return getAverage.call(that, 'totalSeconds', stats);
     })
 
     .then(function () {
