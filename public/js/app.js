@@ -37,6 +37,23 @@ $(function () {
                 delete data._id;
             }
 
+            // Combine minutes and seconds.
+            (function () {
+                var m = parseInt(data.minutes, 10);
+                var s = parseInt(data.seconds, 10);
+                var totalSeconds = 0;
+
+                if (!isNaN(s)) {
+                    totalSeconds += s;
+                }
+
+                if (!isNaN(m)) {
+                    totalSeconds += 60 * m;
+                }
+
+                data.totalSeconds = totalSeconds;
+            }());
+
             $.ajax({
                 type: $form.attr('method'),
                 url: $form.attr('action'),

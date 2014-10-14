@@ -5,7 +5,8 @@
     },
     "development": {
         "message": "I am in development mode.",
-        "dbPath": "dude:dude@kahana.mongohq.com:10030/testing"
+        "dbPath2": "dude:dude@kahana.mongohq.com:10030/testing",
+        "dbPath": "localhost/testing"
     },
     "dude": {
         "message": "I am in dude mode."

@@ -40,6 +40,8 @@ exports.view = function (req, res) {
             throw err;
         }
 
+        console.log('get virtual', runs[0].time);
+
         res.render('view', {
             run: runs[0]
         });
