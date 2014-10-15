@@ -1,17 +1,55 @@
-'use strict';
+    'use strict';
 
 var mongoose = require('mongoose');
 
+var Run;
+
 var runSchema = mongoose.Schema({
     date: Date,
-    time: String,
+    minutes: Number,
+    seconds: Number,
+    totalSeconds: Number,
     distance: Number,
     rating: Number,
     weight: Number,
     vertical: Number
 });
 
-var Run;
+var pad = function (x, length) {
+    x = x + '';
+    
+    while (x.length < length) {
+        x = '0' + x;
+    }
+
+    return x;
+};
+
+runSchema.virtual('time')
+    .get(function () {
+        var seconds = this.seconds;
+        var minutes = this.minutes;
+
+        seconds = seconds % 60;
+
+        return pad(minutes, 2) + ':' + pad(seconds, 2);
+    })
+    .set(function (value) {
+        var parts = value.split(':');
+        var minutes = parseInt(parts[0], 10);
+        var seconds = parseInt(parts[1], 10);
+
+        if (isNaN(minutes)) {
+            minutes = 0;
+        }
+
+        if (isNaN(seconds)) {
+            seconds = 0;
+        }
+
+        this.minutes = minutes;
+        this.seconds = seconds;
+    });
 
 /**
 * Get the top/bottom result by sorting of a field.
@@ -102,31 +140,41 @@ var getAverage = function (field, statHolder) {
     });
 };
 
+var pad = function (x, length) {
+    x = x + '';
+    
+    while (x.length < length) {
+        x = '0' + x;
+    }
+
+    return x;
+};
+
+/**
+* @param {Number} seconds
+* @return {String} mm:ss
+*/
+var getTimeFromSeconds = function (seconds) {
+    var minutes = '';
+
+    if (seconds >= 60) {
+        minutes = Math.floor(seconds / 60);
+        seconds = seconds % 60;
+    }
+
+    return minutes + ':' + pad(seconds, 2);
+};
+
 runSchema.statics.getStats = function (done) {
     var that = this;
     var stats = {};
 
-    getStat.call(this, {
-        field: 'time',
+    // distance ================================================
+    getStat.call(that, {
+        field: 'distance',
         sortOrder: 1,
-        $gt: '',
+        $gt: 0,
         statHolder: stats
-    })
-    .then(function () {
-        return getStat.call(that, {
-            field: 'time',
-            sortOrder: -1,
-            statHolder: stats
-        });
-    })
-
-    .then(function () {
-        return getStat.call(that, {
-            field: 'distance',
-            sortOrder: 1,
-            $gt: 0,
-            statHolder: stats
-        });
     })
     .then(function () {
         return getStat.call(that, {
@@ -139,6 +187,7 @@ runSchema.statics.getStats = function (done) {
         return getAverage.call(that, 'distance', stats);
     })
 
+    // weight ================================================
     .then(function () {
         return getStat.call(that, {
             field: 'weight',
@@ -158,6 +207,7 @@ runSchema.statics.getStats = function (done) {
         return getAverage.call(that, 'weight', stats);
     })
 
+    // vertical ================================================
     .then(function () {
         return getStat.call(that, {
             field: 'vertical',
@@ -177,10 +227,46 @@ runSchema.statics.getStats = function (done) {
         return getAverage.call(that, 'vertical', stats);
     })
 
+    // totalSeconds ================================================
     .then(function () {
+        return getStat.call(that, {
+            field: 'totalSeconds',
+            sortOrder: 1,
+            $gt: 0,
+            statHolder: stats
+        });
+    })
+    .then(function () {
+        return getStat.call(that, {
+            field: 'totalSeconds',
+            sortOrder: -1,
+            statHolder: stats
+        });
+    })
+    .then(function () {
+        return getAverage.call(that, 'totalSeconds', stats);
+    })  
+
+    .then(function () {
+        var top = stats.totalSeconds.top;
+        var bottom = stats.totalSeconds.bottom;
+
+        top.time = getTimeFromSeconds(top.totalSeconds);
+        bottom.time = getTimeFromSeconds(bottom.totalSeconds);
+
+        stats.time = {
+            top: top,
+            bottom: bottom,
+            average: getTimeFromSeconds(Math.round(stats.totalSeconds.average))
+        };
+
+        delete stats.totalSeconds;
+
         done(null, stats);
     });
 };
+
+
 
 
 Run = mongoose.model('Run', runSchema);

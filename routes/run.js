@@ -18,6 +18,8 @@ mongoose.connect('mongodb://' + dbPath);
 exports.create = function (req, res) {
 
     var run = new Run(req.body);
+    var totalSeconds = (run.seconds || 0) + 60 * (run.minutes || 0);
+    run.totalSeconds = totalSeconds;
 
     run.save(function (err, run) {
         if (err) {
