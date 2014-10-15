@@ -260,7 +260,7 @@ runSchema.statics.getStats = function (done) {
             average: getTimeFromSeconds(Math.round(stats.totalSeconds.average))
         };
 
-        // delete stats.totalSeconds;
+        delete stats.totalSeconds;
 
         done(null, stats);
     });

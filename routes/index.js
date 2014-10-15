@@ -36,14 +36,16 @@ exports.view = function (req, res) {
 
     Run.find(criteria, function (err, runs) {
 
+        var result;
+
         if (err) {
             throw err;
         }
 
-        console.log('get virtual', runs[0].time);
+        result = runs[0];
 
         res.render('view', {
-            run: runs[0]
+            run: result
         });
     });
 };
